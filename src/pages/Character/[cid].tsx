@@ -8,7 +8,7 @@ const Character = () => {
 
   useEffect(() => {
     if (cid) {
-      axios.get(`https://localhost:7186/api/Character/1`).then((res) => {
+      axios.get(`https://localhost:7136/api/Character/`).then((res) => {
         console.log(res.data);
       });
     }
