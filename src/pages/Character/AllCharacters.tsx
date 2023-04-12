@@ -1,14 +1,36 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Character } from "../../../models/character";
 
 const Character = () => {
+  const [characters, setCharacters] = useState([] as Character[]);
+  const handleDelete = (id: number) => async () => {
+    await axios.delete(`https://localhost:7136/api/Character/${id}`);
+    setCharacters(characters.filter((character) => character.id !== id));
+  };
+
   useEffect(() => {
     axios.get(`https://localhost:7136/api/Character/GetAll`).then((res) => {
-      console.log(res.data);
+      setCharacters(res.data.data);
     });
   }, []);
 
-  return <p>All Characters: </p>;
+  return (
+    <div>
+      <h1>All Characters: </h1>
+      {characters.map((character) => (
+        <div key={character.id}>
+          <h3>{character.name}</h3>
+          <p>Hit Points: {character.hitPoints}</p>
+          <p>Strength: {character.strength}</p>
+          <p>Defense: {character.defense}</p>
+          <p>Intelligence: {character.intelligence}</p>
+          <p>Class: {character.class}</p>
+          <button onClick={handleDelete(character.id)}>Delete</button>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default Character;

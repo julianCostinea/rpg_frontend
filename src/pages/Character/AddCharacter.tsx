@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useState } from "react";
 
 const AddCharacter = () => {
+  const [fetchResultMessage, setFetchResultMessage] = useState<string>();
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const name = event.target.name.value;
@@ -17,13 +19,11 @@ const AddCharacter = () => {
         },
       }
     );
-    // const response = axios.get(`https://localhost:7136/api/Character/GetAll`).then((res) => {
-    //   console.log(res.data);
-    // });
-    console.log(response.data);
+    setFetchResultMessage(response.data.message);
   };
   return (
     <div>
+      {fetchResultMessage && <h3>{fetchResultMessage}</h3>}
       <form action="" onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input type="text" name="name" id="name" />
