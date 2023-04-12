@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Character } from "../../../models/character";
+import Link from "next/link";
 
 const Character = () => {
   const [characters, setCharacters] = useState([] as Character[]);
@@ -27,6 +28,9 @@ const Character = () => {
           <p>Intelligence: {character.intelligence}</p>
           <p>Class: {character.class}</p>
           <button onClick={handleDelete(character.id)}>Delete</button>
+          <Link href={`/Character/UpdateCharacter/${character.id}`}>
+            <button>Update</button>{" "}
+          </Link>
         </div>
       ))}
     </div>
