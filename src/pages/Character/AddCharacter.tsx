@@ -5,6 +5,7 @@ const AddCharacter = () => {
   const [fetchResultMessage, setFetchResultMessage] = useState<string>();
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+    const token = localStorage.getItem("token");
     const response = await axios.post(
       `https://localhost:7136/api/Character/`,
       {
@@ -18,6 +19,7 @@ const AddCharacter = () => {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
         },
       }
     );

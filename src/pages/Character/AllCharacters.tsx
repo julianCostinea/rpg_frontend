@@ -2,8 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Character } from "../../../models/character";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-const Character = () => {
+const AllCharacters = () => {
+  const router = useRouter();
   const [characters, setCharacters] = useState([] as Character[]);
   const handleDelete = (id: number) => async () => {
     await axios.delete(`https://localhost:7136/api/Character/${id}`);
@@ -11,10 +13,21 @@ const Character = () => {
   };
 
   useEffect(() => {
-    axios.get(`https://localhost:7136/api/Character/GetAll`).then((res) => {
-      setCharacters(res.data.data);
-    });
-  }, []);
+    if (!router.isReady) {
+      return;
+    }
+    const token = localStorage.getItem("token");
+    axios
+      .get(`https://localhost:7136/api/Character/GetAll`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        setCharacters(res.data.data);
+      });
+  }, [router.isReady]);
 
   return (
     <div>
@@ -37,4 +50,4 @@ const Character = () => {
   );
 };
 
-export default Character;
+export default AllCharacters;
