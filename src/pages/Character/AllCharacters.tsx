@@ -25,6 +25,8 @@ const AllCharacters = () => {
         },
       })
       .then((res) => {
+        console.log(res.data.data);
+
         setCharacters(res.data.data);
       });
   }, [router.isReady]);
@@ -41,6 +43,10 @@ const AllCharacters = () => {
           <p>Intelligence: {character.intelligence}</p>
           <p>Class: {character.class}</p>
           <p>Weapon: {character.weapon && character.weapon.name}</p>
+          <div>
+            <h4>Skills: </h4>
+            {character.skills && character.skills.map((skill) => <p key={skill.id}>{skill.name}</p>)}
+          </div>
           <button onClick={handleDelete(character.id)}>Delete</button>
           <Link href={`/Character/UpdateCharacter/${character.id}`}>
             <button>Update</button>{" "}

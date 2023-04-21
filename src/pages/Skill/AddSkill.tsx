@@ -27,17 +27,16 @@ const AddSkill = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const response = await axios.post(`https://localhost:7136/api/Weapon/`, {
-      name: event.target.name.value,
-      damage: event.target.damage.value,
+    const response = await axios.post(`https://localhost:7136/api/Character/Skill`, {
       characterId: event.target.characterId.value,
+      skillId: event.target.skillId.value,
     });
     setFetchResultMessage(response.data.message);
   };
   return (
     <div>
       {fetchResultMessage && <h3>{fetchResultMessage}</h3>}
-      <h3>Add Weapon</h3>
+      <h3>Add Skill</h3>
       {characters && skills && (
         <form
           action=""

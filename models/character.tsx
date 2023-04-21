@@ -7,9 +7,16 @@ export interface Character {
   intelligence: number;
   class: string;
   weapon: Weapon;
+  skills: Skill[];
 }
 
 type Weapon = {
+  name: string;
+  damage: number;
+};
+
+type Skill = {
+  id: number;
   name: string;
   damage: number;
 };
