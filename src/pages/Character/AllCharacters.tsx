@@ -40,6 +40,7 @@ const AllCharacters = () => {
           <p>Defense: {character.defense}</p>
           <p>Intelligence: {character.intelligence}</p>
           <p>Class: {character.class}</p>
+          <p>Weapon: {character.weapon && character.weapon.name}</p>
           <button onClick={handleDelete(character.id)}>Delete</button>
           <Link href={`/Character/UpdateCharacter/${character.id}`}>
             <button>Update</button>{" "}
